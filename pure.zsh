@@ -168,16 +168,15 @@ prompt_pure_preprompt_render() {
 		$cleaned_ps1
 	)
 
-	PROMPT="${(j..)ps1}"
+	PROMPT="$cleaned_ps1"
+
+  RPS1="${(j. .)preprompt_parts}"
 
 	# Expand the prompt for future comparision.
 	local expanded_prompt
 	expanded_prompt="${(S%%)PROMPT}"
 
-	if [[ $1 == precmd ]]; then
-		# Initial newline, for spaciousness.
-		print
-	elif [[ $prompt_pure_last_prompt != $expanded_prompt ]]; then
+  if [[ $prompt_pure_last_prompt != $expanded_prompt ]]; then
 		# Redraw the prompt.
 		prompt_pure_reset_prompt
 	fi
